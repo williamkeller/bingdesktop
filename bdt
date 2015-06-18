@@ -1,3 +1,7 @@
+#!/usr/bin/env ruby
+
+
+
 require "json"
 require "open-uri"
 require "date"
@@ -20,6 +24,7 @@ def image_dir
   File.expand_path("~/Pictures/BingImages")
 end
 
+
 def api_url(day_offset = 0)
   "http://www.bing.com/HPImageArchive.aspx?format=js&idx=#{day_offset}&n=1&mkt=en-US"
 end
@@ -35,12 +40,18 @@ def get_image_url(day_offset = 0)
   "http://www.bing.com#{image_url}"
 end
 
+
 def fetch_image(day_offset = 0) 
+  filebase = (Date.today - day_offset).to_s
+  if Dir.glob("#{image_dir}/#{filebase}*").count > 0
+    puts "file already present, exiting"
+    return
+  end
+
   image_url = get_image_url(day_offset)
 
   filetype = image_url.match(/\.(\w*)$/)[1]
-  filebase = (Date.today - day_offset).to_s
-  
+
   dest_file = File.join(image_dir, "#{filebase}.#{filetype}") 
 
   image_stream = open(image_url)
