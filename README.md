@@ -7,3 +7,7 @@ day and install it as her screen background.
 
 This solution is very specific to OSX. Perhaps one day I'll look at
 running this on other operating systems. 
+
+net.arda.bingdesktop.plist needs to be copied to ~/Library/LaunchAgent
+for the script to run automatically.
+
